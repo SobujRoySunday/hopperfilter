@@ -1,0 +1,59 @@
+name: Bug report
+description: Something isn't working as expected.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to report a bug!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Hold iron ingots
+        2. Right-click an empty hopper
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: mod-version
+    attributes:
+      label: Mod version
+      placeholder: e.g. 1.0.0 (file name hopperfilter-1.0.0-mc26.3.jar)
+    validations:
+      required: true
+  - type: input
+    id: mc-version
+    attributes:
+      label: Minecraft version
+      placeholder: e.g. 26.3
+    validations:
+      required: true
+  - type: input
+    id: fabric-versions
+    attributes:
+      label: Fabric Loader and Fabric API versions
+      placeholder: e.g. Loader 0.19.5, Fabric API 0.166.2+26.3
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Where does it happen?
+      options:
+        - Single player
+        - Multiplayer (dedicated server)
+        - Multiplayer (LAN)
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or config
+      description: Paste `logs/latest.log` (or a link to it) and your `config/hopperfilter.json` if relevant.
+      render: text

@@ -1,0 +1,42 @@
+# Gradle
+.gradle/
+build/
+out/
+classes/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Fabric / Loom dev environment
+run/
+remappedSrc/
+.kotlin/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse / VS Code Java
+bin/
+.classpath
+.project
+.settings/
+.factorypath
+.vscode/
+
+# Logs and crash dumps
+*.log
+logs/
+hs_err_pid*
+replay_pid*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local tooling
+.claude/
+*.tmp
+*.swp
+*~

@@ -1,0 +1,72 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+// Each supported Minecraft line has a versions/<line>.properties file.
+// Pick one with -Pmc=<line>, e.g. ./gradlew build -Pmc=26.2
+def mcLine = project.property('mc').toString()
+def mcFile = file("versions/${mcLine}.properties")
+if (!mcFile.exists()) {
+	def known = file('versions').list().findAll { it.endsWith('.properties') }.collect { it - '.properties' }.sort()
+	throw new GradleException("Unknown Minecraft line '${mcLine}'. Supported: ${known.join(', ')}")
+}
+def mcProps = new Properties()
+mcFile.withInputStream { mcProps.load(it) }
+
+version = "${project.mod_version}+mc${mcLine}"
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+}
+
+loom {
+	mods {
+		"hopperfilter" {
+			sourceSet sourceSets.main
+		}
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${mcProps.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${mcProps.fabric_api_version}"
+}
+
+processResources {
+	def expandProps = [
+			version             : project.version,
+			minecraft_dependency: mcProps.minecraft_dependency
+	]
+	inputs.properties expandProps
+
+	filesMatching("fabric.mod.json") {
+		expand expandProps
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}
+
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+// hopperfilter-1.0.0-mc26.3.jar (no '+' in file names, it gets mangled by some hosts)
+tasks.withType(AbstractArchiveTask).configureEach {
+	archiveVersion = "${project.mod_version}-mc${mcLine}"
+}
+
+def licenseName = "LICENSE_${project.archives_base_name}"
+jar {
+	from('LICENSE') {
+		rename { licenseName }
+	}
+}

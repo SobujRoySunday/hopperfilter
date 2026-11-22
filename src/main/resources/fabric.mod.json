@@ -1,0 +1,25 @@
+{
+	"schemaVersion": 1,
+	"id": "hopperfilter",
+	"version": "${version}",
+	"name": "Hopper Filter Setup",
+	"description": "Right-click an empty hopper to fill its slots with your saved filter layout, pulled from your inventory. Sneak + right-click a filled hopper with an empty hand to save its layout.",
+	"authors": ["Priyo"],
+	"contact": {
+		"homepage": "https://github.com/SobujRoySunday/hopperfilter",
+		"sources": "https://github.com/SobujRoySunday/hopperfilter",
+		"issues": "https://github.com/SobujRoySunday/hopperfilter/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/hopperfilter/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["com.hopperfilter.HopperFilterMod"]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "${minecraft_dependency}",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
